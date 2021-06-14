@@ -6,11 +6,12 @@ import PostScoreView from './components/post/post-score-view';
 import ResultsView from './components/results/results-view';
 import SignupView from './components/signup/signup-view';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-
+import Nav from './components/nav/nav.js';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+      <Nav /> {/* Nav bar */}
       <Switch>
         <Route exact path="/" component={SignupView} />
         <Route path="/results" component={ResultsView} />
