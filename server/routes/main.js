@@ -5,15 +5,17 @@ const Workout = require('../models/workout');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-
+const { getDay} = require('../utils');
 app.use(cors());
+
+
 
 router.param('id', (req, res, next, id) => {
   Workout.findById(id)
     .populate('workouts')
     .exec((err, workout) => {
       if (err) {
-        return res.status(404).send('No Workout with that ID found');
+        return res.status(404).send('No Workout with that ID found!');
       }
       req.workout = workout;
       next();
@@ -51,10 +53,19 @@ router.post("/workouts/:id/results", (req, res) => {
 
 //returns weekly schedule
 router.get("/classes", (req, res) => {
-  Class.find((error, classes) => {
+  const day = getDay();
+  Class.find({day}, (error, classes) => {
     res.send(classes);
   });
 });
+
+//return todays workout
+router.get('/postscores', (req, res) => {
+  const day = getDay();
+  Workout.findOne({day}, (error, workout) => {
+    res.send(workout);
+  });
+})
 
 //returns results
 router.get("/results", (req, res) => {

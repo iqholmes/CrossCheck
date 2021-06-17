@@ -13,6 +13,8 @@ const SignupView = () => {
   }, [getClasses])
   function renderSignup() {
 
+  const today = new Date().toDateString();
+
     const scheduleRows = classes?.map((item) => {
       return (
         <tr key={item._id}>
@@ -25,7 +27,8 @@ const SignupView = () => {
     })
     return (
       <div>
-        <h1>Choose a class - Date</h1>
+        <h1>Choose a class - {today}</h1>
+        
         <Table striped bordered hover>
           <thead>
             <tr>

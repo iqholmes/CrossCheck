@@ -3,16 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import PostScoreView from './components/post/post-score-view';
-import ResultsView from './components/results/results-view';
-import SignupView from './components/signup/signup-view';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Nav from './components/nav/nav.js';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
-
 import reducers from './reducers';
+import PostScoreContainer from './components/post/post-score-container';
+import ResultsContainer from './components/results/results-container';
+import SignupContainer from './components/signup/signup-container';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -21,9 +20,9 @@ ReactDOM.render(
     <BrowserRouter>
       <Nav /> {/* Nav bar */}
       <Switch>
-        <Route exact path="/" component={SignupView} />
-        <Route path="/results" component={ResultsView} />
-        <Route path="/post-score" component={PostScoreView} />
+        <Route exact path="/" component={SignupContainer} />
+        <Route path="/results" component={ResultsContainer} />
+        <Route path="/post-score" component={PostScoreContainer} />
       </Switch>
     </BrowserRouter>
   </Provider>,

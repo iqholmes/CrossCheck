@@ -3,6 +3,7 @@ import axios from 'axios';
 export const GET_WORKOUT = "GET_WORKOUT";
 export const GET_WORKOUTS = "GET_WORKOUTS"
 export const GET_CLASSES = "GET_CLASSES";
+export const POST_RESULT = "POST_RESULT";
 
 const ROOT_URL = "http://localhost:8000"
 
@@ -39,6 +40,14 @@ export function getClasses() {
     })
 }
 
-export function postNewWorkoutResult(newResult) {
-  
+export function postNewWorkoutResult(_id, newResult) {
+  return axios
+    .post(`${ROOT_URL}/workouts/${_id}/results`, newResult)
+    .then((response) => ({
+      type: POST_RESULT,
+      payload:response
+    }))
+    .catch((error) => {
+      alert('Error');
+    });
 }
