@@ -1,0 +1,13 @@
+h1 {
+  padding-top: 10px;
+  margin-left: 5px;
+}
+
+.table {
+  display: flexbox;
+  margin: 10px auto;
+}
+
+.table-head {
+  background-color: orange;
+}

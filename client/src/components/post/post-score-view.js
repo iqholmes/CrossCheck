@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {  Modal } from 'react-bootstrap';
 import { getWorkoutById, getWorkouts } from '../../actions';
+import './post-score.css'
 
 const PostScoreView = (props) => {
   const DAYS_OF_THE_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]

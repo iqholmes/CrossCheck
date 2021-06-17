@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table } from 'react-bootstrap';
-import { getClasses } from '../../actions/index'
+import { getClasses } from '../../actions/index';
+import './signup.css';
+
 
 const SignupView = () => {
   const { classes } = useSelector((state) => state.classesData);
@@ -28,9 +30,9 @@ const SignupView = () => {
     return (
       <div>
         <h1>Choose a class - {today}</h1>
-        
-        <Table striped bordered hover>
-          <thead>
+
+        <table className="table table-striped">
+          <thead className="table-head">
             <tr>
               <th>Time</th>
               <th>Class Type</th>
@@ -41,7 +43,7 @@ const SignupView = () => {
           <tbody>
             {scheduleRows}
           </tbody>
-        </Table>
+        </table>
       </div>
     )
   }
