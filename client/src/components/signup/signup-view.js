@@ -30,7 +30,6 @@ const SignupView = () => {
     return (
       <div>
         <h1>Choose a class - {today}</h1>
-
         <table className="table table-striped">
           <thead className="table-head">
             <tr>

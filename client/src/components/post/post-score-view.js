@@ -20,6 +20,7 @@ const PostScoreView = (props) => {
   const workoutDay = getDay();
   //const workoutId = props.match.params._id;
   const dispatch = useDispatch();
+  const workoutId = "60cb46fb954049bd8e5d4a27"
   
   // const handleNewWorkoutResult = (e) => {
   //   e.preventDefault();
@@ -32,7 +33,7 @@ const PostScoreView = (props) => {
   //     )
   //   }
   useEffect(() =>{
-    dispatch(getWorkoutById(workoutDay));
+    dispatch(getWorkoutById(workoutId));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getWorkoutById]);
 

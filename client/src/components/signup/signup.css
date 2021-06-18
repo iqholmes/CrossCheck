@@ -3,9 +3,14 @@ h1 {
   margin-left: 5px;
 }
 
+body {
+  margin: 10px;
+}
+
 .table {
   display: flexbox;
   margin: 10px auto;
+  border-radius: 6px;
 }
 
 .table-head {
