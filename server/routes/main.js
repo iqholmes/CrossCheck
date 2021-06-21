@@ -8,8 +8,6 @@ const app = express();
 const { getDay} = require('../utils');
 app.use(cors());
 
-
-
 router.param('id', (req, res, next, id) => {
   Workout.findById(id)
     .populate('workouts')
@@ -62,7 +60,7 @@ router.get("/classes", (req, res) => {
 //return todays workout
 router.get('/postscores', (req, res) => {
   const day = getDay();
-  Workout.findOne({day}, (error, workout) => {
+  Workout.findOne({day}).populate({path: 'results'}).exec((error, workout) => {
     res.send(workout);
   });
 })

@@ -4,6 +4,7 @@ export const GET_WORKOUT = "GET_WORKOUT";
 export const GET_WORKOUTS = "GET_WORKOUTS"
 export const GET_CLASSES = "GET_CLASSES";
 export const POST_RESULT = "POST_RESULT";
+export const GET_RESULTS = "GET_RESULTS";
 
 const ROOT_URL = "http://localhost:8000"
 
@@ -28,6 +29,15 @@ export function getWorkoutById(_id) {
     }))
 }
 
+export function getWorkoutByDay() {
+  return axios
+    .get(`${ROOT_URL}/postscores`)
+    .then((response) => ({
+      type: GET_WORKOUT,
+      payload: response,
+    }))
+}
+
 export function getClasses() {
   return axios
     .get(`${ROOT_URL}/classes`)
@@ -45,7 +55,19 @@ export function postNewWorkoutResult(_id, newResult) {
     .post(`${ROOT_URL}/workouts/${_id}/results`, newResult)
     .then((response) => ({
       type: POST_RESULT,
-      payload:response
+      payload: response
+    }))
+    .catch((error) => {
+      alert('Error');
+    });
+}
+
+export function getResults() {
+  return axios
+    .get(`${ROOT_URL}/postscores`)
+    .then((response) => ({
+      type: GET_RESULTS,
+      data: response.data
     }))
     .catch((error) => {
       alert('Error');

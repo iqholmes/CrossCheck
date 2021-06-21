@@ -1,29 +1,20 @@
-import { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { getResults } from '../../actions';
 import './results.css';
 
 
 const ResultsView = () => {
-  const data = [
-    {
-      name: 'Ian',
-      reps: 340,
-    },
-    {
-      name: 'Ryan',
-      reps: 350,
-    },
-    {
-      name: 'Alana',
-      reps: 220,
-    },
-    {
-      name: 'Tasha',
-      reps: 219,
-    }
-  ];
+  const data = useSelector((state) => state.resultPostData.results);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getResults());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getResults])
+  
   function renderResults() {
     return (
       <div>
@@ -33,13 +24,13 @@ const ResultsView = () => {
   }
   function renderChart() {
     return (
-    <BarChart width={700} height={400} data={data}>
+    <BarChart width={700} height={400} data={data?.results || []}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="time" />
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey="reps" fill="#82ca9d" />
+      <Bar dataKey="time" fill="#82ca9d" />
     </BarChart>
     )
   }

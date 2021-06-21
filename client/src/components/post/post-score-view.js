@@ -2,43 +2,52 @@ import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {  Modal } from 'react-bootstrap';
-import { getWorkoutById, getWorkouts } from '../../actions';
+import { getWorkoutByDay, postNewWorkoutResult } from '../../actions';
+import { getSecondsToTime, getTimeInSeconds } from '../../utils';
 import './post-score.css'
 
-const PostScoreView = (props) => {
-  const DAYS_OF_THE_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
-  function getDay() {
-    const date = new Date();
-    const dayIndex = date.getDay();
-    return DAYS_OF_THE_WEEK[dayIndex];
-  }
+const PostScoreView = () => {
   const [show, setShow] = useState(false);
   const [reps, setReps] = useState(Number);
   const [time, setTime] = useState('');
   const { workout } = useSelector((state) => state.workoutData);
-  const workoutDay = getDay();
-  //const workoutId = props.match.params._id;
-  const dispatch = useDispatch();
-  const workoutId = "60cb46fb954049bd8e5d4a27"
-  
-  // const handleNewWorkoutResult = (e) => {
-  //   e.preventDefault();
 
-  //     dispatch(
-  //       postNewWorkoutResult({
-  //         reps,
-  //         time,
-  //       })
-  //     )
-  //   }
+  const dispatch = useDispatch();
+  
+  const handleNewWorkoutResult = (e) => {
+    e.preventDefault();
+
+    const timeRegex = /^(?:0?\d|1[012]):[0-5]\d$/;
+
+    if (workout.type === 'time' && !timeRegex.test(time)) {
+      alert('Please enter a valid time format. i.e. 00:00');
+      return;
+    }
+
+    const result = workout.type === 'reps' ? {reps} : workout.type === 'time' ? {time} : undefined;
+    if (result === undefined) {
+      setShow(false);
+      return;
+    }
+    dispatch(
+      postNewWorkoutResult(workout._id, {
+        reps,
+        time
+      })
+    );
+    setShow(false);
+  };
+
   useEffect(() =>{
-    dispatch(getWorkoutById(workoutId));
+    dispatch(getWorkoutByDay());
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getWorkoutById]);
+  }, [getWorkoutByDay]);
 
   function renderWorkout() {
     if (workout) {
+      console.log('4:10', getTimeInSeconds('4:10'))
+      console.log('04:10', getTimeInSeconds('04:10'))
+      console.log(getSecondsToTime(250))
       return (
         <div>
           <h1>Post Your Score</h1>    
@@ -82,36 +91,39 @@ const PostScoreView = (props) => {
             <Modal.Title>Add a new Company</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form>
-            <div className="form-group">
-              <label>Reps</label>
-              <input
-                required
-                className="form-control"
-                placeholder="Enter Total Reps"
-                value={reps}
-                onChange={(e) => setReps(e.target.value)} 
-              ></input>
-            </div>
-            <br />
-            <div className="form-group">
-              <label>Time</label>
-              <input
-                className="form-control"
-                placeholder="Enter Time (MM:SS)" 
-                value={time}
-                onChange={(e) => setTime(e.target.value)} 
-              ></input>
-            </div>
-            <br />
-            </form>
+            {workout && (<form>
+              {workout.type === 'reps' && (<>
+                <div className="form-group">
+                  <label>Reps</label>
+                  <input
+                    required
+                    className="form-control"
+                    placeholder="Enter Total Reps"
+                    value={reps}
+                    onChange={(e) => setReps(e.target.value)} 
+                  ></input>
+                </div>
+                <br />
+              </>)}
+              {workout.type === 'time' && (<>
+                <div className="form-group">
+                  <label>Time</label>
+                  <input
+                    className="form-control"
+                    placeholder="Enter Time (MM:SS)" 
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)} 
+                  ></input>
+                </div>
+                <br />
+              </>)}
+            </form>)}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => setShow(false)}>
               Close
             </Button>
-            <Button>
-            {/* <Button variant="primary" onClick={handleNewWorkoutResult}> */}
+            <Button variant="primary" onClick={handleNewWorkoutResult}>
               Post
             </Button>
           </Modal.Footer>
