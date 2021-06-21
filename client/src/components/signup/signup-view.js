@@ -14,6 +14,11 @@ const SignupView = () => {
   }, [getClasses])
   function renderSignup() {
 
+  const handleReservation = (e) => {
+    e.preventDefault();
+    console.log(classes)
+  }
+
   const today = new Date().toDateString();
 
     const scheduleRows = classes?.map((item) => {
@@ -22,7 +27,7 @@ const SignupView = () => {
           <td>{item.time}</td>
           <td>{item.type}</td>
           <td>{item.spotsRemaining}</td>
-          <td><button className="btn btn-primary">Reserve</button></td>
+          <td><button onClick={handleReservation} className="btn btn-primary">Reserve</button></td>
         </tr>
       )
     })

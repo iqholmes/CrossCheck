@@ -3,13 +3,14 @@ import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {  Modal } from 'react-bootstrap';
 import { getWorkoutByDay, postNewWorkoutResult } from '../../actions';
-import { getSecondsToTime, getTimeInSeconds } from '../../utils';
+import { getTimeInSeconds } from '../../utils';
 import './post-score.css'
 
 const PostScoreView = () => {
   const [show, setShow] = useState(false);
   const [reps, setReps] = useState(Number);
   const [time, setTime] = useState('');
+  const [athlete, setAthlete] = useState('');
   const { workout } = useSelector((state) => state.workoutData);
 
   const dispatch = useDispatch();
@@ -29,10 +30,12 @@ const PostScoreView = () => {
       setShow(false);
       return;
     }
+    
     dispatch(
       postNewWorkoutResult(workout._id, {
         reps,
-        time
+        time: getTimeInSeconds(time), // this will take the string and send it to the BE as a number in secs
+        athlete
       })
     );
     setShow(false);
@@ -45,9 +48,10 @@ const PostScoreView = () => {
 
   function renderWorkout() {
     if (workout) {
-      console.log('4:10', getTimeInSeconds('4:10'))
-      console.log('04:10', getTimeInSeconds('04:10'))
-      console.log(getSecondsToTime(250))
+      // console.log('4:10', getTimeInSeconds('4:10'))
+      // console.log('04:10', getTimeInSeconds('04:10'))
+      //console.log(getSecondsToTime(250)) 
+      // NOTE: when displaying the "time" (from BE in seconds), use this function to show it as a "time string"
       return (
         <div>
           <h1>Post Your Score</h1>    
@@ -94,6 +98,14 @@ const PostScoreView = () => {
             {workout && (<form>
               {workout.type === 'reps' && (<>
                 <div className="form-group">
+                <label>Athlete Name</label>
+                  <input
+                    required
+                    className="form-control"
+                    placeholder="Enter Your Name"
+                    value={athlete}
+                    onChange={(e) => setAthlete(e.target.value)} 
+                  ></input>
                   <label>Reps</label>
                   <input
                     required
@@ -107,6 +119,14 @@ const PostScoreView = () => {
               </>)}
               {workout.type === 'time' && (<>
                 <div className="form-group">
+                <label>Athlete Name</label>
+                  <input
+                    required
+                    className="form-control"
+                    placeholder="Enter Your Name"
+                    value={athlete}
+                    onChange={(e) => setAthlete(e.target.value)} 
+                  ></input>
                   <label>Time</label>
                   <input
                     className="form-control"

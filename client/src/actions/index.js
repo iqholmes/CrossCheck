@@ -50,6 +50,18 @@ export function getClasses() {
     })
 }
 
+export function getResults() {
+  return axios
+    .get(`${ROOT_URL}/postscores`)
+    .then((response) => ({
+      type: GET_RESULTS,
+      data: response.data
+    }))
+    .catch((error) => {
+      alert('Error');
+    });
+}
+
 export function postNewWorkoutResult(_id, newResult) {
   return axios
     .post(`${ROOT_URL}/workouts/${_id}/results`, newResult)
@@ -62,14 +74,3 @@ export function postNewWorkoutResult(_id, newResult) {
     });
 }
 
-export function getResults() {
-  return axios
-    .get(`${ROOT_URL}/postscores`)
-    .then((response) => ({
-      type: GET_RESULTS,
-      data: response.data
-    }))
-    .catch((error) => {
-      alert('Error');
-    });
-}

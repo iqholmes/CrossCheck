@@ -42,6 +42,7 @@ router.post("/workouts/:id/results", (req, res) => {
   const newResult = new Result(req.body);
   newResult.reps = req.body.reps;
   newResult.time = req.body.time;
+  newResult.athlete = req.body.athlete;
   newResult.workout = req.workout;
   newResult.save();
   req.workout.results.push(newResult);
