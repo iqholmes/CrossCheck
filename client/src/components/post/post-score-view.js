@@ -86,7 +86,7 @@ const PostScoreView = () => {
   function renderAddCompanyModal() {
     return (
       <>
-        <Button variant="primary" onClick={() => setShow(true)}>
+        <Button variant="primary post-score-button" onClick={() => setShow(true)}>
           Post Your Score
         </Button>
   
@@ -143,7 +143,7 @@ const PostScoreView = () => {
             <Button variant="secondary" onClick={() => setShow(false)}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleNewWorkoutResult}>
+            <Button variant="primary post-score-button" onClick={handleNewWorkoutResult}>
               Post
             </Button>
           </Modal.Footer>

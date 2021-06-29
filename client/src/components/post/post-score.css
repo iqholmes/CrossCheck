@@ -2,3 +2,14 @@ h1 {
   padding-top: 10px;
   margin-left: 5px;
 }
+
+.post-score-button {
+  background-color: #8c00ff;
+  border: solid 1px #8c00ff;
+}
+
+.post-score-button:hover {
+  background-color: white;
+  border: solid 1px #8c00ff;
+  color: #8c00ff;
+}

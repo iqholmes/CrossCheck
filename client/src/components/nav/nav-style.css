@@ -1,3 +1,11 @@
+a {
+  color: #8c00ff;
+}
+
+.nav {
+  background-color: #c7f9cc;
+}
+
 .navbar-nav {
   float: left;
   padding: 5px;
@@ -7,4 +15,18 @@
 .nav-title {
   margin: 0;
   padding-left: 10px;
+}
+
+.navbar {
+  background-color: #c7f9cc;
+  width: 100%;
+}
+
+.nav-link {
+  color: #8c00ff;
+}
+
+.nav-link:hover {
+  background-color: #8c00ff;
+  color: white;
 }

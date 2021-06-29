@@ -7,10 +7,8 @@ import { getSecondsToTime } from '../../utils';
 
 const ResultsView = () => {
   const data = useSelector((state) => state.resultPostData.results);
-  const timeString = data?.results.map(results => ({time: getSecondsToTime(results?.time), athlete: results?.athlete}))
+  // const timeString = data?.results.map(results => ({time: getSecondsToTime(results?.time), athlete: results?.athlete}))
 
-
-  console.log(timeString)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +31,7 @@ const ResultsView = () => {
       <YAxis tickFormatter={(value) => getSecondsToTime(value)}/>
       <Tooltip formatter={(value) => getSecondsToTime(value)}/>
       <Legend />
-      <Bar dataKey="time" fill="#8884d8" />
+      <Bar dataKey="time" fill="#8C00FF" />
     </BarChart>
     )
   }

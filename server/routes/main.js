@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Result = require('../models/results');
 const Class = require('../models/class');
 const Workout = require('../models/workout');
+const Athlete = require('../models/athlete');
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -58,6 +59,47 @@ router.get("/classes", (req, res) => {
   });
 });
 
+//get spcific class
+router.get("/classes/:id", (req, res) => {
+  Class
+    .findById(req.params.id)
+    .populate('athletes')
+    .exec((error, classById) => {
+      res.send(classById);
+    });
+});
+
+//get list of athletes signed up (array)
+router.post("/classes/:id/athlete/:athleteId", (req, res) => {
+  Class
+    .findByIdAndUpdate(
+      req.params.id,
+      {$push: {"athletes": req.params.athleteId}},
+      {safe: true, upsert: true},
+      (err, newClass) => {
+        if (err) {
+          return alert(err);
+        }
+        return res.send(newClass);
+      }
+    );
+});
+
+router.post("/classes/:id/athlete/:athleteId/remove", (req, res) => {
+  Class
+    .findByIdAndUpdate(
+      req.params.id,
+      {$pull: {"athletes": req.params.athleteId}},
+      {safe: true, upsert: true},
+      (err, newClass) => {
+        if (err) {
+          return alert(err);
+        }
+        return res.send(newClass);
+      }
+    );
+});
+
 //return todays workout
 router.get('/postscores', (req, res) => {
   const day = getDay();
@@ -70,6 +112,13 @@ router.get('/postscores', (req, res) => {
 router.get("/results", (req, res) => {
   Result.find((error, results) => {
     res.send(results);
+  });
+});
+
+//returns gym athletes
+router.get("/athletes", (req, res) => {
+  Athlete.find((error, athletes) => {
+    res.send(athletes);
   });
 });
 

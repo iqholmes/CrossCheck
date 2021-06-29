@@ -24,7 +24,7 @@ const workoutSchema = new Schema({
 
 const Workout = mongoose.model("Workout", workoutSchema);
 
-let fran = new Workout({name: "Fran", day:"Monday", length: "8 min cap", repCount1:"21-15-9", movement1: "Thrusters", movement2: "Pull ups", weight:"95/65", results: ["60c7831c2ae6f67482d93899", "60c7831c2ae6f67482d93898", "60c7831c2ae6f67482d9389a", "60c7831c2ae6f67482d9389b", "60c7831c2ae6f67482d9389c"], type:"time"})
+let fran = new Workout({name: "Fran", day:"Monday", length: "8 min cap", repCount1:"21-15-9", movement1: "Thrusters", movement2: "Pull ups", weight:"95/65", type:"time"})
 //fran.save();
 let murph = new Workout({name: "Murph", day:"Thursday", movement1:"Run 1 Mile", movement2: "100 Pull ups", movement3: "200 Push ups", movement4: "300 Air Squats", movement5:"Run 1 Mile", type:"time"})
 //murph.save();

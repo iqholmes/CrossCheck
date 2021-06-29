@@ -2,6 +2,7 @@ import React from 'react';
 import { Nav /* Tab, Tabs */ } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import SignupView from './signup-view';
+
 /* import DealsContainer from '../deals/deals-container'; */
 /* import { Link, Redirect, Switch } from 'react-router-dom'; */
 //import './companies-view-style.css';

@@ -14,5 +14,28 @@ body {
 }
 
 .table-head {
-  background-color: orange;
+  background-color: #80ed99;
+}
+
+.athleteListHide {
+  display: none;
+}
+
+.athleteListShow {
+  display: flexbox;
+}
+
+.athlete-list {
+  background-color: gainsboro;
+}
+
+.reserve-class-button {
+  background-color: #8c00ff;
+  border: solid 1px #8c00ff;
+}
+
+.reserve-class-button:hover {
+  background-color: white;
+  border: solid 1px #8c00ff;
+  color: #8c00ff;
 }

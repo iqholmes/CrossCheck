@@ -5,6 +5,10 @@ export const GET_WORKOUTS = "GET_WORKOUTS"
 export const GET_CLASSES = "GET_CLASSES";
 export const POST_RESULT = "POST_RESULT";
 export const GET_RESULTS = "GET_RESULTS";
+export const GET_ATHLETES = "GET_ATHLETES";
+export const GET_CLASS = "GET_CLASS";
+export const POST_SIGNUP = "POST_SIGNUP";
+export const POP_SIGNUP = "POP_SIGNUP";
 
 const ROOT_URL = "http://localhost:8000"
 
@@ -50,6 +54,41 @@ export function getClasses() {
     })
 }
 
+export function getClassById(_id) {
+  return axios
+    .get(`${ROOT_URL}/classes/${_id}`)
+    .then((response) => ({
+      type:GET_CLASS,
+      payload: response
+    }))
+    .catch((error) => {
+      alert("Error")
+    })
+}
+
+export function postNewAthleteSignup (_id, _athleteId) {
+  return axios 
+    .post(`${ROOT_URL}/classes/${_id}/athlete/${_athleteId}`)
+    .then ((response) => ({
+      type: POST_SIGNUP,
+      payload: response
+    }))
+    .catch((error) => {
+    });
+}
+
+export function removeAthleteFromClass (_id, _athleteId) {
+  return axios 
+    .post(`${ROOT_URL}/classes/${_id}/athlete/${_athleteId}/remove`)
+    .then ((response) => ({
+      type: POP_SIGNUP,
+      payload: response,
+    }))
+    .catch((error) => {
+    });
+    
+}
+
 export function getResults() {
   return axios
     .get(`${ROOT_URL}/postscores`)
@@ -74,3 +113,14 @@ export function postNewWorkoutResult(_id, newResult) {
     });
 }
 
+export function getAthletes() {
+  return axios
+    .get(`${ROOT_URL}/athletes`)
+    .then((response) => ({
+      type:GET_ATHLETES,
+      payload: response
+    }))
+    .catch((error) => {
+      alert("Error")
+    })
+}
