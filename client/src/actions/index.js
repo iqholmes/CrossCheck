@@ -74,6 +74,7 @@ export function postNewAthleteSignup (_id, _athleteId) {
       payload: response
     }))
     .catch((error) => {
+      alert('Error adding athlete to class')
     });
 }
 
@@ -82,11 +83,11 @@ export function removeAthleteFromClass (_id, _athleteId) {
     .post(`${ROOT_URL}/classes/${_id}/athlete/${_athleteId}/remove`)
     .then ((response) => ({
       type: POP_SIGNUP,
-      payload: response,
+      payload: response
     }))
     .catch((error) => {
+      alert('Error removing athlete from class');
     });
-    
 }
 
 export function getResults() {

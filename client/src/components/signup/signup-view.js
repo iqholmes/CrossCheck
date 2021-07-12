@@ -15,6 +15,7 @@ const SignupView = () => {
   const [showAthletes, setShowAthletes] = useState(false);
 
   const toggleAthleteShow = () => {
+    console.log('toggleAthleteShow', selectedClassId);
     setShowAthletes(!showAthletes);
   };
 
@@ -27,12 +28,14 @@ const SignupView = () => {
   function renderSignup() {
 
     const handleReservation = (athleteId) => {
+      console.log('handleReservation', selectedClassId);
       dispatch(postNewAthleteSignup(selectedClassId, athleteId))
         .then(() => dispatch(getClasses()));
     }
 
-    const handleCancellation = (athleteId) => {
-      dispatch(removeAthleteFromClass(selectedClassId, athleteId))
+    const handleCancellation = (classId, athleteId) => {
+      console.log('handleCancellation', selectedClassId);
+      dispatch(removeAthleteFromClass(classId, athleteId))
         .then(() => dispatch(getClasses()));
     }
 
@@ -47,7 +50,7 @@ const SignupView = () => {
               <td>{item.type}</td>
               <td>{item.spotsRemaining - Math.max(item.athletes.length, 0)}</td>
               <td>
-              <ReserveClass athletes={item.athletes || []} onOpenModal={() => setSelectedClassId(item._id)} onCloseModal={() => setSelectedClassId(false)} onSubmit={handleReservation} />
+              <ReserveClass athletes={item.athletes || []} onOpenModal={() => {console.log('onOpenModal', selectedClassId); setSelectedClassId(item._id)}} onCloseModal={() => {console.log('onCloseModal', selectedClassId); setSelectedClassId(false)}} onSubmit={handleReservation} />
               </td>
           </tr >
           {signedUpAthletes.map((a, _id)=> (
@@ -56,7 +59,7 @@ const SignupView = () => {
                 <td><strong>{a.firstName} {a.lastName}</strong></td>
                 <td></td>
                 <td></td>
-                <td><Button color="danger" onClick={handleCancellation}>Cancel</Button></td>
+                <td><Button color="danger" onClick={() => {console.log('onOpenModal', selectedClassId); handleCancellation(item._id, a._id)}}>Cancel</Button></td>
               </tr>:null
             ))}
         </>
