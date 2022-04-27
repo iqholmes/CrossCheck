@@ -1,22 +1,28 @@
 const mongoose = require('mongoose');
-//const Class = require('./class');
-
 const Schema = mongoose.Schema;
+var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
 
-const athleteSchema = new Schema({
+const AthleteSchema = new Schema({
+  email: { type: String, unique: true, lowercase: true },
   firstName: String,
   lastName: String,
+  hash: String,
+  salt: String
 });
 
-const Athlete = mongoose.model("Athlete", athleteSchema);
+AthleteSchema.methods.setPassword = function(password){
+  this.salt = crypto.randomBytes(16).toString('hex');
 
-let athlete1 = new Athlete({firstName: 'Ian', lastName: 'Holmes'});
-//athlete1.save();
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+}
 
-let athlete2 = new Athlete({firstName: 'Brian', lastName: 'Holmes'});
-//athlete2.save();
+AthleteSchema.methods.validPassword = function(password) {
+  var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 
-let athlete3 = new Athlete({firstName: 'Edward', lastName: 'Holmes'});
-//athlete3.save();
+  return this.hash === hash;
+}
 
-module.exports = mongoose.model('Athlete', athleteSchema);
+const Athlete = mongoose.model('athlete', AthleteSchema);
+
+module.exports = Athlete;
