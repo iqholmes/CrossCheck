@@ -4,6 +4,7 @@ import workoutsReducer from "./workouts-reducer";
 import classesReducer from "./classes-reducer";
 import resultReducer from "./result-reducer";
 import athletesReducer from "./athletes-reducer";
+import authReducer from "./auth-reducer";
 
 const rootReducer = combineReducers({
   workoutData: workoutReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   classesData: classesReducer,
   resultPostData: resultReducer,
   athleteList: athletesReducer,
+  auth: authReducer,
 });
 
 export default rootReducer

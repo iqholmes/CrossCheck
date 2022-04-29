@@ -2,6 +2,10 @@ a {
   color: #8c00ff;
 }
 
+.logout {
+  margin-left: 60%;
+}
+
 .nav {
   background-color: #c7f9cc;
 }

@@ -9,9 +9,9 @@ function ResultsContainer () {
   return (
   <>
     <Nav variant="tabs" defaultActiveKey="/results">
-      <LinkContainer to="/">
+      <LinkContainer to="/class">
         <Nav.Item>
-          <Nav.Link href="/">Choose a Class</Nav.Link>
+          <Nav.Link href="/class">Choose a Class</Nav.Link>
         </Nav.Item>
       </LinkContainer>
       <LinkContainer to="/post-score">
