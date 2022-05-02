@@ -16,6 +16,8 @@ import ClassContainer from './components/class/class-container';
 import Login from './components/auth/login';
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk));
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+
 
 ReactDOM.render(
   <Provider store={store}>

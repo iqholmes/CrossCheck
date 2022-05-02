@@ -92,7 +92,7 @@ const PostScoreView = () => {
   
         <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header>
-            <Modal.Title>Add a new Company</Modal.Title>
+            <Modal.Title>Post your Score</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {workout && (<form>
