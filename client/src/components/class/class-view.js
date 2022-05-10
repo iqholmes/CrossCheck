@@ -22,25 +22,20 @@ const SignupView = () => {
   useEffect(() => {
     dispatch(getClasses());
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getClasses])
+  }, [classes])
 
+  const handleReservation = (athleteId) => {
+    console.log('handleReservation', selectedClassId);
+    dispatch(postNewAthleteSignup(selectedClassId, athleteId))
+  }
+
+  const handleCancellation = (classId, athleteId) => {
+    console.log('handleCancellation', selectedClassId);
+    dispatch(removeAthleteFromClass(classId, athleteId))
+  }
+
+  const today = new Date().toDateString();
   
-  function renderSignup() {
-
-    const handleReservation = (athleteId) => {
-      console.log('handleReservation', selectedClassId);
-      dispatch(postNewAthleteSignup(selectedClassId, athleteId))
-        .then(() => dispatch(getClasses()));
-    }
-
-    const handleCancellation = (classId, athleteId) => {
-      console.log('handleCancellation', selectedClassId);
-      dispatch(removeAthleteFromClass(classId, athleteId))
-        .then(() => dispatch(getClasses()));
-    }
-
-    const today = new Date().toDateString();
-
     const scheduleRows = classes?.map((item) => {
       const signedUpAthletes = athletes.filter(athlete => item.athletes.includes(athlete._id));
       return (
@@ -85,11 +80,5 @@ const SignupView = () => {
       </div>
     )
   }
-  return (
-    <div>
-      {renderSignup()}
-    </div>
-  )
-};
 
 export default SignupView;

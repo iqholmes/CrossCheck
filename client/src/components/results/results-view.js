@@ -10,7 +10,7 @@ const ResultsView = () => {
   // const timeString = data?.results.map(results => ({time: getSecondsToTime(results?.time), athlete: results?.athlete}))
 
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(getResults());
   // eslint-disable-next-line react-hooks/exhaustive-deps

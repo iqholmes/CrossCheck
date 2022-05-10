@@ -4,17 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import {  Modal } from 'react-bootstrap';
 import { getWorkoutByDay, postNewWorkoutResult } from '../../actions';
 import { getTimeInSeconds } from '../../utils';
-import './post-score.css'
+import './post-score.css';
+import ReserveClass from '../class/reserve-class';
 
 const PostScoreView = () => {
   const [show, setShow] = useState(false);
   const [reps, setReps] = useState(Number);
   const [time, setTime] = useState('');
   const [athlete, setAthlete] = useState('');
+  const email = useSelector((state) => state.auth.email);
   const { workout } = useSelector((state) => state.workoutData);
 
   const dispatch = useDispatch();
-  
+
   const handleNewWorkoutResult = (e) => {
     e.preventDefault();
 
@@ -92,7 +94,7 @@ const PostScoreView = () => {
   
         <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header>
-            <Modal.Title>Add a new Company</Modal.Title>
+            <Modal.Title>Post your Score</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {workout && (<form>

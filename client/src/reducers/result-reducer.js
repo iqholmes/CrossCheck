@@ -4,13 +4,13 @@ const defaultState = [];
 
 const resultReducer = function (state = defaultState, action) {
   switch (action.type) {
+    case GET_RESULTS:
+      return {
+        results: action.payload
+      }
     case POST_RESULT: 
       return {
         result: action.payload.data
-      }
-    case GET_RESULTS:
-      return {
-        results: action.data
       }
     default: 
       return state;
