@@ -156,3 +156,10 @@ export const signin = (formProps, callback) => dispatch => {
     dispatch({ type: AUTH_ERROR, payload: error})
   });
 };
+
+export const signout = (callback) => dispatch => {
+  localStorage.removeItem('token');
+
+  dispatch({ type: AUTH_USER, payload: '' });
+  callback()
+};

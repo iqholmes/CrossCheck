@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getClasses, postNewAthleteSignup, removeAthleteFromClass } from '../../actions/index';
 import './signup.css';
@@ -13,6 +14,7 @@ const SignupView = () => {
   const dispatch = useDispatch();
   const [selectedClassId, setSelectedClassId] = useState(false);
   const [showAthletes, setShowAthletes] = useState(false);
+  const authenticated = useSelector((state) => state.auth.authenticated);
 
   const toggleAthleteShow = () => {
     console.log('toggleAthleteShow', selectedClassId);
@@ -61,6 +63,7 @@ const SignupView = () => {
       )
     })
     
+    if (authenticated) {
     return (
       <div>
         <h1>Choose a class - {today}</h1>
@@ -78,7 +81,11 @@ const SignupView = () => {
           </tbody>
           </Table>
       </div>
-    )
+    )} else {
+      return (
+        <h1><Link to="/login">Log in</Link> or <Link to ="/signup">sign up!</Link></h1>
+      )
+    }
   }
 
 export default SignupView;
