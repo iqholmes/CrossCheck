@@ -8,8 +8,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from "redux-thunk";
 import rootReducer from "./reducers/index";
-import promise from 'redux-promise';
-import reducers from './reducers';
 import PostScoreContainer from './components/post/post-score-container';
 import ResultsContainer from './components/results/results-container';
 import ClassContainer from './components/class/class-container';
@@ -17,8 +15,6 @@ import Login from './components/auth/login';
 import Signup from './components/auth/signup';
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk));
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
-
 
 ReactDOM.render(
   <Provider store={store}>

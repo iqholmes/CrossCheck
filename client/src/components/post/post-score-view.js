@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {  Modal } from 'react-bootstrap';
 import { getWorkoutByDay, postNewWorkoutResult } from '../../actions';
 import { getTimeInSeconds } from '../../utils';
 import './post-score.css';
-import ReserveClass from '../class/reserve-class';
+// import ReserveClass from '../class/reserve-class';
 
 const PostScoreView = () => {
   const [show, setShow] = useState(false);
@@ -13,8 +14,12 @@ const PostScoreView = () => {
   const [time, setTime] = useState('');
   const [athlete, setAthlete] = useState('');
   const email = useSelector((state) => state.auth.email);
-  const { workout } = useSelector((state) => state.workoutData);
+  const firstName = useSelector((state) => state.auth.firstName);
+  const lastName = useSelector((state) => state.auth.lastName);
+  const authenticated = useSelector((state) => state.auth.authenticated);
 
+  const { workout } = useSelector((state) => state.workoutData);
+  console.log(firstName, lastName, email);
   const dispatch = useDispatch();
 
   const handleNewWorkoutResult = (e) => {
@@ -153,13 +158,17 @@ const PostScoreView = () => {
       </>
     );
     }
-
-  return (
-    <div>
-      {renderWorkout()}
-      {renderAddCompanyModal()}
-    </div>
-  )
+  if (authenticated) {
+    return (
+      <div>
+        {renderWorkout()}
+        {renderAddCompanyModal()}
+      </div>
+    )} else {
+      return (
+        <h1><Link to="/login">Log in</Link> or <Link to ="/signup">sign up!</Link></h1>
+      )
+    }
 };
 
 export default PostScoreView;
