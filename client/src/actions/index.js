@@ -157,6 +157,25 @@ export const signin = (formProps, callback) => dispatch => {
   });
 };
 
+export const fetchUser = () => dispatch => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+    }
+  };
+
+  axios.get(
+    'http://localhost:8000/auth/current_user',
+    config
+  ).then(function (response) {
+    dispatch({ type: AUTH_USER, payload: response.data });
+    localStorage.setItem('token', response.data.token);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
 export const signout = (callback) => dispatch => {
   localStorage.removeItem('token');
 

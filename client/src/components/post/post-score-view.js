@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {  Modal } from 'react-bootstrap';
-import { getWorkoutByDay, postNewWorkoutResult } from '../../actions';
+import { getWorkoutByDay, postNewWorkoutResult, fetchUser } from '../../actions';
 import { getTimeInSeconds } from '../../utils';
 import './post-score.css';
 // import ReserveClass from '../class/reserve-class';
@@ -21,6 +21,12 @@ const PostScoreView = () => {
   const { workout } = useSelector((state) => state.workoutData);
   console.log(firstName, lastName, email);
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+    if (authenticated) {
+      dispatch(fetchUser());
+    } 
+  }, [authenticated, dispatch]);
 
   const handleNewWorkoutResult = (e) => {
     e.preventDefault();
