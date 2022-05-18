@@ -22,12 +22,12 @@ ReactDOM.render(
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <div>
+        <>
           <Nav />
           <Route path="/class" component={ClassContainer} />
           <Route path="/results" component={ResultsContainer} />
           <Route path="/post-score" component={PostScoreContainer} />
-        </div>
+        </>
       </Switch>
     </BrowserRouter>
   </Provider>,

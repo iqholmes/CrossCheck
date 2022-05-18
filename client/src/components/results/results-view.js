@@ -9,6 +9,7 @@ import { getSecondsToTime } from '../../utils';
 const ResultsView = () => {
   const data = useSelector((state) => state.resultPostData.results);
   // const timeString = data?.results.map(results => ({time: getSecondsToTime(results?.time), athlete: results?.athlete}))
+  const { workout } = useSelector((state) => state.workoutData);
   const authenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
   
@@ -26,15 +27,25 @@ const ResultsView = () => {
   }
   function renderChart() {
     return (
-    <BarChart width={700} height={400} data={data?.results || []}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="athlete" />
-      <YAxis tickFormatter={(value) => getSecondsToTime(value)}/>
-      <Tooltip formatter={(value) => getSecondsToTime(value)}/>
-      <Legend />
-      <Bar dataKey="time" fill="#8C00FF" />
-    </BarChart>
-    )
+      <>
+        {workout.type === 'time' && (<><BarChart width={700} height={400} data={data?.results || []}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="athlete" />
+          <YAxis tickFormatter={(value) => getSecondsToTime(value)}/>
+          <Tooltip formatter={(value) => getSecondsToTime(value)}/>
+          <Legend />
+          <Bar dataKey="time" fill="#8C00FF" />
+        </BarChart></>)}
+        {workout.type === 'reps' && (<><BarChart width={700} height={400} data={data?.results || []}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="athlete" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="reps" fill="#8C00FF" />
+        </BarChart></>)}
+      </>
+      )
   }
   if (authenticated) {
   return (

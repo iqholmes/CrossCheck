@@ -116,7 +116,7 @@ const PostScoreView = () => {
                     required
                     className="form-control"
                     placeholder="Enter Your Name"
-                    value={athlete}
+                    value={userString}
                     onChange={(e) => setAthlete(userString)} 
                   ></input>
                   <label>Reps</label>

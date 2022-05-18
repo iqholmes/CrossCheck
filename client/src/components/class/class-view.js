@@ -15,7 +15,6 @@ const SignupView = () => {
   const [selectedClassId, setSelectedClassId] = useState(false);
   const [showAthletes, setShowAthletes] = useState(false);
   const authenticated = useSelector((state) => state.auth.authenticated);
-
   const toggleAthleteShow = () => {
     console.log('toggleAthleteShow', selectedClassId);
     setShowAthletes(!showAthletes);
