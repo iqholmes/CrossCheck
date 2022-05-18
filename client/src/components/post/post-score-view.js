@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {  Modal } from 'react-bootstrap';
-import { getWorkoutByDay, postNewWorkoutResult } from '../../actions';
+import { getWorkoutByDay, postNewWorkoutResult, fetchUser } from '../../actions';
 import { getTimeInSeconds } from '../../utils';
 import './post-score.css';
 // import ReserveClass from '../class/reserve-class';
@@ -12,15 +12,21 @@ const PostScoreView = () => {
   const [show, setShow] = useState(false);
   const [reps, setReps] = useState(Number);
   const [time, setTime] = useState('');
-  const [athlete, setAthlete] = useState('');
-  const email = useSelector((state) => state.auth.email);
   const firstName = useSelector((state) => state.auth.firstName);
   const lastName = useSelector((state) => state.auth.lastName);
   const authenticated = useSelector((state) => state.auth.authenticated);
+  const userString = `${firstName} ${lastName}`
+  const [athlete, setAthlete] = useState(userString);
+  const email = useSelector((state) => state.auth.email);
 
   const { workout } = useSelector((state) => state.workoutData);
-  console.log(firstName, lastName, email);
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+    if (authenticated) {
+      dispatch(fetchUser());
+    } 
+  }, [authenticated, dispatch]);
 
   const handleNewWorkoutResult = (e) => {
     e.preventDefault();
@@ -111,7 +117,7 @@ const PostScoreView = () => {
                     className="form-control"
                     placeholder="Enter Your Name"
                     value={athlete}
-                    onChange={(e) => setAthlete(e.target.value)} 
+                    onChange={(e) => setAthlete(userString)} 
                   ></input>
                   <label>Reps</label>
                   <input

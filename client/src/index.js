@@ -19,13 +19,15 @@ const store = createStore(rootReducer, {}, applyMiddleware(thunk));
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Nav /> {/* Nav bar */}
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/class" component={ClassContainer} />
-        <Route path="/results" component={ResultsContainer} />
-        <Route path="/post-score" component={PostScoreContainer} />
+        <div>
+          <Nav />
+          <Route path="/class" component={ClassContainer} />
+          <Route path="/results" component={ResultsContainer} />
+          <Route path="/post-score" component={PostScoreContainer} />
+        </div>
       </Switch>
     </BrowserRouter>
   </Provider>,
