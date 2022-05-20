@@ -11,14 +11,18 @@ function tokenForUser(user) {
 exports.signin = function(req, res, next) {
   res.send({
     token: tokenForUser(req.user),
-    email: req.user.email,
-    firstName: req.user.firstName,
-    lastName: req.user.lastName
   })
 }
 
 exports.currentUser = function(req, res) {
-  res.send(req.user)
+  const user = {
+    token: tokenForUser(req.user),
+    email: req.user.email,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName
+  }
+
+  res.send(user)
 }
 
 exports.signup = function(req, res, next) {

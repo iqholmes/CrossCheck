@@ -3,21 +3,19 @@ const mongoose = require("mongoose");
 const { urlencoded } = require('express');
 const http = require('http');
 const bodyParser = require("body-parser");
+const app = express();
+const cors = require('cors');
 const allRoutes = require('./routes/main');
 const passport = require("passport");
 const jwt = require("jwt-simple");
 const router = require('./routes/sign-in');
-
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-const LocalStrategy = require("passport-local").Strategy;
-const JwtStrategy = require("passport-jwt").Strategy;
 
 mongoose.connect('mongodb://localhost/final-project', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-const app = express();
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -25,15 +23,15 @@ router(app);
 
 app.use(passport.initialize());
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept'
+//   );
+//   next();
+// });
 
 app.use(allRoutes);
 
