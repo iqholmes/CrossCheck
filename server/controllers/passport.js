@@ -9,9 +9,6 @@ const LocalStrategy = require('passport-local');
 // Create local strategy
 const localOptions = { usernameField: 'email' }
 const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
-  // Verify this email and password, call done with the user
-  // if it is the correct email and password
-  // otherwise, call done with false
   Athlete.findOne({ email: email }, function(err, user) {
     if (err) { return done(err); }
     if (!user) { return done(null, false) }
@@ -24,17 +21,12 @@ const localLogin = new LocalStrategy(localOptions, function(email, password, don
   })
 })
 
-// Setup options for JWT Strategy
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: keys.TOKEN_SECRET
 }
 
-// Create JWT strategy
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
-  // See if the user ID in the payload exists in our database
-  // If it does, call 'done' with that other
-  // otherwise, call done without a user object
   Athlete.findById(payload.sub, function(err, user) {
     if (err) { return done(err, false) }
 
@@ -46,7 +38,6 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
   })
 })
 
-// Tell passport to use this strategy
 passport.use(jwtLogin)
 passport.use(localLogin)
 

@@ -165,7 +165,7 @@ export const fetchUser = () => dispatch => {
   };
 
   axios.get(
-    'http://localhost:8000/auth/current_user',
+    '/auth/current_user',
     config
   ).then(function (response) {
     dispatch({ type: AUTH_USER, payload: response.data });
