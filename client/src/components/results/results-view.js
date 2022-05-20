@@ -12,7 +12,7 @@ const ResultsView = () => {
   const { workout } = useSelector((state) => state.workoutData);
   const authenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(getResults());
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,7 +28,7 @@ const ResultsView = () => {
   function renderChart() {
     return (
       <>
-        {workout.type === 'time' && (<><BarChart width={700} height={400} data={data?.results || []}>
+        {workout && (<> {workout.type === 'time' && (<><BarChart width={700} height={400} data={data?.results || []}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="athlete" />
           <YAxis tickFormatter={(value) => getSecondsToTime(value)}/>
@@ -36,7 +36,7 @@ const ResultsView = () => {
           <Legend />
           <Bar dataKey="time" fill="#8C00FF" />
         </BarChart></>)}
-        {workout.type === 'reps' && (<><BarChart width={700} height={400} data={data?.results || []}>
+        {workout?.type === 'reps' && (<><BarChart width={700} height={400} data={data?.results || []}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="athlete" />
           <YAxis />
@@ -44,6 +44,7 @@ const ResultsView = () => {
           <Legend />
           <Bar dataKey="reps" fill="#8C00FF" />
         </BarChart></>)}
+        </>)}
       </>
       )
   }

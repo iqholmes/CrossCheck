@@ -46,7 +46,8 @@ const SignupView = () => {
               <td>{item.type}</td>
               <td>{item.spotsRemaining - Math.max(item.athletes.length, 0)}</td>
               <td>
-              <ReserveClass athletes={item.athletes || []} onOpenModal={() => {console.log('onOpenModal', selectedClassId); setSelectedClassId(item._id)}} onCloseModal={() => {console.log('onCloseModal', selectedClassId); setSelectedClassId(false)}} onSubmit={handleReservation} />
+              <ReserveClass athletes={item.athletes || []} onOpenModal={() => {console.log('onOpenModal', selectedClassId); setSelectedClassId(item._id)}} onCloseModal={() => {console.log('onCloseModal', selectedClassId); setSelectedClassId(false)}}  
+              onSubmit={handleReservation} />
               </td>
           </tr >
           {signedUpAthletes.map((a, _id)=> (
