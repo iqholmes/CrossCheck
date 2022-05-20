@@ -1,4 +1,4 @@
-import { Link, useHistory, NavLink } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './nav-style.css';
 import { useSelector, useDispatch } from "react-redux";
 import { signout } from "../../actions";

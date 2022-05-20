@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAthletes } from '../../actions/index';
+import { getAthletes, fetchUser } from '../../actions/index';
 
 function ReserveClass({athletes, onOpenModal, onCloseModal, onSubmit}) {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [selectedAthlete, setSelectedAthlete] = useState(false);
-
+  const authenticated = useSelector((state) => state.auth.authenticated);
+ 
   useEffect(() => {
     dispatch(getAthletes());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getAthletes]);
+
+  useEffect(() => {
+    if (authenticated) {
+      dispatch(fetchUser());
+    } 
+  }, [authenticated, dispatch]);
 
   const athleteList = useSelector(state => state.athleteList);
   const remainingAthletes = athleteList.filter(athlete => !athletes.includes(athlete._id));

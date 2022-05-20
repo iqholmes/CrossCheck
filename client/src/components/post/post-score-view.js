@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import {  Modal } from 'react-bootstrap';
 import { getWorkoutByDay, postNewWorkoutResult, fetchUser } from '../../actions';
 import { getTimeInSeconds } from '../../utils';
+import emailjs from "emailjs-com";
 import './post-score.css';
 // import ReserveClass from '../class/reserve-class';
 
@@ -17,11 +18,10 @@ const PostScoreView = () => {
   const authenticated = useSelector((state) => state.auth.authenticated);
   const userString = `${firstName} ${lastName}`
   const [athlete, setAthlete] = useState(userString);
-  const email = useSelector((state) => state.auth.email);
-
+  //const email = useSelector((state) => state.auth.email);
   const { workout } = useSelector((state) => state.workoutData);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     if (authenticated) {
       dispatch(fetchUser());
@@ -33,6 +33,26 @@ const PostScoreView = () => {
 
     const timeRegex = /^(?:0?\d|1[012]):[0-5]\d$/;
 
+    emailjs.send("service_1yn4q4n","template_m8634rk", {
+      name: userString,
+      time: time,
+      workoutname: workout.name,
+      workoutlength: workout.length,
+      workoutrepcount1: workout.repcount1,
+      workoutmovement1: workout.movement1,
+      workoutrepcount2: workout.repcount2,
+      workoutmovement2: workout.movement2,
+      workoutrepcount3: workout.repcount3,
+      workoutmovement3: workout.movement3,
+      workoutrepcount4: workout.repcount4,
+      workoutmovement4: workout.movement4,
+      workoutrepcount5: workout.repcount5,
+      workoutmovement5: workout.movement5,
+      workoutweight: workout.weight    
+      }, "bmmKPo-udh8ZYa33p").then(res => {
+      console.log(res);
+    }).catch(err => console.log(err));
+    
     if (workout.type === 'time' && !timeRegex.test(time)) {
       alert('Please enter a valid time format. i.e. 00:00');
       return;
@@ -116,12 +136,14 @@ const PostScoreView = () => {
                     required
                     className="form-control"
                     placeholder="Enter Your Name"
-                    value={athlete}
+                    name="name"
+                    value={userString}
                     onChange={(e) => setAthlete(userString)} 
                   ></input>
                   <label>Reps</label>
                   <input
                     required
+                    name="reps"
                     className="form-control"
                     placeholder="Enter Total Reps"
                     value={reps}
@@ -137,13 +159,15 @@ const PostScoreView = () => {
                     required
                     className="form-control"
                     placeholder="Enter Your Name"
-                    value={athlete}
-                    onChange={(e) => setAthlete(e.target.value)} 
+                    name="name"
+                    value={userString}
+                    onChange={(e) => setAthlete(userString)} 
                   ></input>
                   <label>Time</label>
                   <input
                     className="form-control"
                     placeholder="Enter Time (MM:SS)" 
+                    name="time"
                     value={time}
                     onChange={(e) => setTime(e.target.value)} 
                   ></input>
@@ -156,7 +180,7 @@ const PostScoreView = () => {
             <Button variant="secondary" onClick={() => setShow(false)}>
               Close
             </Button>
-            <Button variant="primary post-score-button" onClick={handleNewWorkoutResult}>
+            <Button variant="primary post-score-button" onClick={handleNewWorkoutResult} >
               Post
             </Button>
           </Modal.Footer>
