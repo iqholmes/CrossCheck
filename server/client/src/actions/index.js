@@ -16,7 +16,7 @@ const ROOT_URL = "http://localhost:8000"
 
 export const getWorkouts = () => dispatch => {
    axios
-    .get(`${ROOT_URL}/workouts`)
+    .get(`/workouts`)
     .then(function (response) {
       dispatch({type:GET_WORKOUTS,
       payload:response})
@@ -28,7 +28,7 @@ export const getWorkouts = () => dispatch => {
 
 export const getWorkoutById = (_id) => dispatch => {
   axios
-    .get(`${ROOT_URL}/workouts/${_id}`)
+    .get(`/workouts/${_id}`)
     .then(function (response) {
       dispatch({type: GET_WORKOUT,
       payload: response,})
@@ -40,7 +40,7 @@ export const getWorkoutById = (_id) => dispatch => {
 
 export const getWorkoutByDay = () => dispatch => {
   axios
-    .get(`${ROOT_URL}/postscores`)
+    .get(`/postscores`)
     .then(function (response) {
       dispatch ({type: GET_WORKOUT,
       payload: response,})
@@ -51,7 +51,7 @@ export const getWorkoutByDay = () => dispatch => {
 }
 
 export const getClasses = () => dispatch => {
-  axios.get(`${ROOT_URL}/classes`)
+  axios.get(`/classes`)
     .then(function (response) {
      dispatch({type: GET_CLASSES, payload: response.data })
     })
@@ -62,7 +62,7 @@ export const getClasses = () => dispatch => {
 
 export const getClassById = (_id) => dispatch => {
    axios
-    .get(`${ROOT_URL}/classes/${_id}`)
+    .get(`/classes/${_id}`)
     .then(function (response) {
       dispatch({type:GET_CLASS,
       payload: response})
@@ -74,7 +74,7 @@ export const getClassById = (_id) => dispatch => {
 
 export const postNewAthleteSignup = (_id, _athleteId) => dispatch => {
   axios 
-    .post(`${ROOT_URL}/classes/${_id}/athlete/${_athleteId}`)
+    .post(`/classes/${_id}/athlete/${_athleteId}`)
     .then (function (response) {
       dispatch({type: POST_SIGNUP,
       payload: response})
@@ -86,7 +86,7 @@ export const postNewAthleteSignup = (_id, _athleteId) => dispatch => {
 
 export const removeAthleteFromClass = (_id, _athleteId) => dispatch => {
   axios 
-    .post(`${ROOT_URL}/classes/${_id}/athlete/${_athleteId}/remove`)
+    .post(`/classes/${_id}/athlete/${_athleteId}/remove`)
     .then (function (response) {
       dispatch ({type: POP_SIGNUP,
       payload: response})
@@ -98,7 +98,7 @@ export const removeAthleteFromClass = (_id, _athleteId) => dispatch => {
 
 export const getResults = () => dispatch => {
   axios
-    .get(`${ROOT_URL}/postscores`)
+    .get(`/postscores`)
     .then(function (response) {
      dispatch({type: GET_RESULTS, payload: response.data })
     })
@@ -109,7 +109,7 @@ export const getResults = () => dispatch => {
 
 export const postNewWorkoutResult = (_id, newResult) => dispatch => {
   axios
-    .post(`${ROOT_URL}/workouts/${_id}/results`, newResult)
+    .post(`/workouts/${_id}/results`, newResult)
     .then(function (response) {
       dispatch({type: POST_RESULT,
       payload: response.data})
@@ -145,7 +145,7 @@ export const signup = (formProps, callback) => dispatch => {
 
 export const signin = (formProps, callback) => dispatch => {
   axios.post(
-    `${ROOT_URL}/auth/signin`,
+    `/auth/signin`,
     formProps
   ).then(function (response){
     dispatch({type: AUTH_USER, payload: response.data });
@@ -165,7 +165,7 @@ export const fetchUser = () => dispatch => {
   };
 
   axios.get(
-    'http://localhost:8000/auth/current_user',
+    '/auth/current_user',
     config
   ).then(function (response) {
     dispatch({ type: AUTH_USER, payload: response.data });
